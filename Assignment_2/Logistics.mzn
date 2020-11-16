@@ -26,7 +26,7 @@ array[1..graph_size] of int: balance = [if i=start then length(dest) elseif exis
 array[1..2*n_edges] of var 0..sum(costs): out_flow;
 
 %constraint for finding paths in the graph
-constraint network_flow_cost(edges, balance, costs, out_flow, total_cost);
+constraint network_flow(edges, balance, out_flow);
 
 %code for creating an out_flow without including a used edge multiple times
 array[1..2*n_edges] of var 0..1: out_flow_binary;
