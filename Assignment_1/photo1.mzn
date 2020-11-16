@@ -7,6 +7,7 @@ array[1..n_prefs, 1..2] of 1..n: prefs;
 array[1..n] of var 1..n: queue;
 array[1..n_prefs] of var 0..1: satisfied;
 var 0..n_prefs: nbr_satisfied;
+
 %Uniqe persons at each index
 constraint alldifferent(queue);
 
