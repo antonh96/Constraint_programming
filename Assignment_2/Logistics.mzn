@@ -4,7 +4,6 @@ int: graph_size;
 int: start;
 int: n_dests;
 int: n_edges;
-var 0..1000: total_cost;
 
 array[1..n_dests] of 1..graph_size: dest;
 array[1..n_edges] of 1..graph_size: from;
@@ -30,9 +29,8 @@ constraint network_flow(edges, balance, out_flow);
 
 %code for creating an out_flow without including a used edge multiple times
 array[1..2*n_edges] of var 0..1: out_flow_binary;
-constraint forall(i in 1..2*n_edges)(if out_flow[i]>0 then out_flow_binary[i]=1 else out_flow_binary[i]=0 endif);
+constraint forall(i in 1..2*n_edges)(out_flow_binary[i] = (out_flow[i]>0));
 var int: sum_cost = sum(i in 1..2*n_edges)(out_flow_binary[i]*costs[i]);
-
 
 solve minimize sum_cost;
 

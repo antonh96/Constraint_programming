@@ -165,6 +165,7 @@ public class Golomb {
 	IntVar cost = numbers[numbers.length - 1];
 
 	SplitSearch search = new SplitSearch(store);
+	//SplitSearch2 search = new SplitSearch2(store);
 	//SimpleDFS search = new lab3.SimpleDFS(store);
 	search.setVariablesToReport(numbers);
 	search.setCostVariable(cost);

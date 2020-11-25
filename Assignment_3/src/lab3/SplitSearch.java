@@ -55,7 +55,7 @@ public class SplitSearch  {
 	 */
 	Store store;
 
-	int nbrOfWrongDecisions = 0;
+	public int nbrOfWrongDecisions = 0;
 
 	/**
 	 * Defines varibales to be printed when solution is found
@@ -256,7 +256,7 @@ public class SplitSearch  {
 		 * example value selection; indomain_min
 		 */
 		int selectValue(IntVar v) {
-			int value = (v.min()+v.max());
+			int value = v.min()+v.max();
 			switch (strategy){
 				case 1:
 					return value/2;
