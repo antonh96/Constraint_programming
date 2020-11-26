@@ -164,9 +164,9 @@ public class Golomb {
 
 	IntVar cost = numbers[numbers.length - 1];
 
-	SplitSearch search = new SplitSearch(store);
+	//SplitSearch search = new SplitSearch(store);
 	//SplitSearch2 search = new SplitSearch2(store);
-	//SimpleDFS search = new lab3.SimpleDFS(store);
+	SimpleDFS search = new lab3.SimpleDFS(store);
 	search.setVariablesToReport(numbers);
 	search.setCostVariable(cost);
 
@@ -176,8 +176,5 @@ public class Golomb {
 	System.out.println("Total number of failed nodes = " + search.failedNodes);
 	
 	System.out.println (result);
-
     }
-	
-	
 }

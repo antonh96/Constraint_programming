@@ -1,5 +1,6 @@
-package lab3; /**
- *  lab3.SimpleDFS.java
+package lab3;
+/**
+ *  SimpleDFS.java 
  *  This file is part of JaCoP.
  *
  *  JaCoP is a Java Constraint Programming solver. 
@@ -32,7 +33,6 @@ package lab3; /**
 import org.jacop.constraints.Not;
 import org.jacop.constraints.PrimitiveConstraint;
 import org.jacop.constraints.XeqC;
-import org.jacop.constraints.XlteqC;
 import org.jacop.core.FailException;
 import org.jacop.core.IntDomain;
 import org.jacop.core.IntVar;
@@ -224,25 +224,18 @@ public class SimpleDFS  {
 	 */ 
 	IntVar selectVariable(IntVar[] v) {
 	    if (v.length != 0) {
-			if (v[0].min() == v[0].max()) {
-				searchVariables = new IntVar[v.length - 1];
-				for (int i = 0; i < v.length - 1; i++) {
-					searchVariables[i] = v[i + 1];
-				}
-			} else {
-				searchVariables = new IntVar[v.length];
-				for (int i = 0; i < v.length; i++) {
-					searchVariables[i] = v[i];
-				}
 
-			}
-				return v[0];
+		searchVariables = new IntVar[v.length-1];
+		for (int i = 0; i < v.length-1; i++) {
+		    searchVariables[i] = v[i+1]; 
+		}
+
+		return v[0];
 
 	    }
 	    else {
 		System.err.println("Zero length list of variables for labeling");
 		return new IntVar(store);
-
 	    }
 	}
 
@@ -250,14 +243,14 @@ public class SimpleDFS  {
 	 * example value selection; indomain_min
 	 */ 
 	int selectValue(IntVar v) {
-	    return value = (v.min()+v.max())/2;
+	    return v.min();
 	}
 
 	/**
 	 * example constraint assigning a selected value
 	 */
 	public PrimitiveConstraint getConstraint() {
-		return new XlteqC(var, value);
+	    return new XeqC(var, value);
 	}
     }
 }

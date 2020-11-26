@@ -190,6 +190,9 @@ public class SplitSearch2  {
     }
 
     public void reportSolution() {
+        System.out.println("Nodes visited: " + N);
+        System.out.println("Number of wrong decisions: " + nbrOfWrongDecisions);
+
         if (costVariable != null)
             System.out.println ("Cost is " + costVariable);
 
@@ -197,8 +200,7 @@ public class SplitSearch2  {
             System.out.print (variablesToReport[i] + " ");
         System.out.println ("\n---------------");
 
-        System.out.println("Nodes visited: " + N);
-        System.out.println("Number of wrong decisions: " + nbrOfWrongDecisions);
+
     }
 
     public void setVariablesToReport(IntVar[] v) {
@@ -232,12 +234,12 @@ public class SplitSearch2  {
             if (v.length != 0) {
                 IntVar tempVar=v[0];
                 for (int i=0; i<v.length; i++) {
-                    if (v[i].getSize() < tempVar.getSize()) {
+                    if (v[i].getSize() > tempVar.getSize()) {
                         tempVar = v[i];
                     }
                 }
 
-                if (tempVar.min() == tempVar.max()) {
+                if (tempVar.getSize()==1) {
                     searchVariables = new IntVar[v.length - 1];
                     int j=0;
                     for (int i = 0; i < v.length; i++) {
