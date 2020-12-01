@@ -17,18 +17,25 @@ set of int : mul;
 array[1..n] of set of int : dependencies;
 
 %start times
-array[1..length(add)] of var 1..100: starts_add;
-array[1..length(mul)] of var 1..100: starts_mul;
+array[1..length(add)] of var 0..100: starts_add;
+array[1..length(mul)] of var 0..100: starts_mul;
 
-array[1..n, 1..4] of var 1..n : tasks;
+array[1..n] of var int : starts;
 
-var 1..2 : processor;
+array[1..n] of var int : durations;
 
+constraint forall(i in 1..length(add))(
+  (durations[add[i]] = del_add) /\ (starts[add[i]] = starts_add[i])
+  );
+  
+constraint forall(i in 1..length(mul))(
+  durations[mul[i]] = del_mul /\ starts[mul[i]] = starts_mul[i]
+  );
 
 %t2 can not start before t1 is finished
-constraint forall(node in add, dep in dependencies[node])( if exists(d in starts_add)(d = dep) then (starts_add[node] + del_add <= starts_add[dep]) else (starts_add[node] + del_add <= starts_mul[dep]) endif);
-
-constraint forall(node in mul, dep in dependencies[node+length(add)])(if exists(d in starts_mul)(d = dep) then (starts_mul[node] + del_mul <= starts_mul[dep]) else (starts_mul[node] + del_mul <= starts_add[dep]) endif);
+constraint forall(node in add++mul, dep in dependencies[node])(
+  starts[dep] + durations[dep] <= starts[node]
+  );
 
 %lists for diffn with adders
 array[1..length(add)] of var 1..number_add : list_adders;
@@ -47,4 +54,8 @@ constraint diffn(starts_mul, list_mullers, list_dur_mul, list_2);
 constraint cumulative(starts_add, list_dur, list_1, number_add);
 constraint cumulative(starts_mul, list_dur_mul, list_2, number_mul);
 
-solve satisfy;
+var int: endtime = max([starts[i]+durations[i]| i in last]);
+
+solve minimize max(starts);
+
+output ["endtime", show(endtime), "start", show(starts)];
