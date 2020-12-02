@@ -62,4 +62,4 @@ var int: cycles = max([starts[i]+durations[i]| i in last]);
 
 solve minimize cycles;
 
-output [" cycles = ", show(cycles), " starttimes= ", show(starts)];
+output [" cycles = ", show(cycles), " starttimes= ", show(starts), "Op assig add= ", show(list_adders), "Op assig mul= ", show(list_mullers)];
